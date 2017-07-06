@@ -1,0 +1,18 @@
+#SOURCE DEST POLICY LOG LEVEL LIMIT:BURST
+# 2. fw - vm
+fw dkr  ACCEPT
+
+# 3. fw - net
+fw      net  ACCEPT
+
+# 4. vm - net
+dkr net  ACCEPT
+# 5. vm - dkr
+dkr dkr ACCEPT
+# 6. vm -fw
+dkr fw DROP info
+net	fw	DROP	info
+net dkr DROP info
+# THE FOLLOWING POLICY MUST BE LAST
+all     all  REJECT info
+

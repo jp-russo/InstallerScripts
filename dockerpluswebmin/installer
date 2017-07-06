@@ -1,0 +1,54 @@
+#!/bin/bash
+
+#Add key
+sudo apt-get -y update
+sudo apt-get -y upgrade
+sudo apt-get -y install apt-transport-https ca-certificates
+sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58                                        118E89F3A912897C070ADBF76221572C52609D
+
+echo "deb https://apt.dockerproject.org/repo ubuntu-xenial main" >> /etc/apt/sou                                        rces.list.d/docker.list
+
+sudo apt-get -y update
+sudo apt-get purge lxc-docker
+apt-cache policy docker-engine
+
+sudo apt-get -y update
+sudo apt-get install -y linux-image-extra-$(uname -r) linux-image-extra-virtual
+
+#Install Docker
+sudo apt-get -y update
+sudo apt-get -y install docker-engine
+sudo service docker start
+
+#Install Compose
+sudo curl -L https://github.com/docker/compose/releases/download/1.7.1/docker-co                                        mpose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+
+#update IP Tables
+mkdir /etc/systemd/system/docker.service.d
+cat << EOF > /etc/systemd/system/docker.service.d/noiptables.conf
+[Service]
+ExecStart=
+ExecStart=/usr/bin/docker daemon -H fd:// --iptables=false
+EOF
+systemctl daemon-reload
+
+#Add user to docker
+sudo usermod -aG docker rtadmin
+
+#Install Webmin
+wget http://prdownloads.sourceforge.net/webadmin/webmin_1.810_all.deb
+dpkg --install webmin_1.810_all.deb
+sudo apt-get install -y -f
+
+#Install Shorewall
+sudo apt-get install -y shorewall
+
+cp etc/shorewall/* /etc/shorewall/
+sudo service shorewall start
+
+#Add pqzone to Docker
+docker network create --subnet=172.18.0.0/24 --gateway=172.18.0.100 --ip-range=1                                        72.18.0.2/24 -o "com.docker.network.bridge.name"="dkzone" dkzone
+
+#Install Zip
+sudo apt-get install -y zip tree unzip links2

@@ -1,0 +1,34 @@
+#!/bin/bash
+
+#Add key
+sudo apt-get -y update
+sudo apt-get -y upgrade
+sudo apt-get -y install apt-transport-https ca-certificates
+sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
+
+echo "deb https://apt.dockerproject.org/repo ubuntu-xenial main" >> /etc/apt/sources.list.d/docker.list
+
+sudo apt-get -y update
+sudo apt-get purge lxc-docker
+apt-cache policy docker-engine
+
+sudo apt-get -y update
+sudo apt-get install -y linux-image-extra-$(uname -r) linux-image-extra-virtual
+
+#Install Docker
+sudo apt-get -y update
+
+#Set to latest version supported by rancher 
+sudo apt-get -y install docker-engine=17.03.1~ce-0~ubuntu-xenial
+sudo service docker start
+
+#Install Compose
+sudo curl -L https://github.com/docker/compose/releases/download/1.7.1/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+
+#Add user to docker
+sudo usermod -aG docker rtadmin
+
+
+#Install Zip
+sudo apt-get install -y zip tree unzip links2
