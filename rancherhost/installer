@@ -28,6 +28,44 @@ sudo service docker start
 #Add user to docker
 sudo usermod -aG docker rtadmin
 
-
 #Install Zip
 sudo apt-get install -y zip tree unzip links2
+
+# Install Rancher
+cd ~
+wget https://releases.rancher.com/cli/v0.6.1/rancher-linux-amd64-v0.6.1.tar.gz
+tar xvf rancher-linux-amd64-v0.6.1.tar.gz
+cd rancher-v0.6.1
+sudo chmod +x rancher
+sudo mv rancher /usr/bin
+cd ..
+rm -fr rancher-v0.6.1
+rm rancher-linux-amd64-v0.6.1.tar.gz
+
+# Install Rancher-Compose
+wget https://releases.rancher.com/compose/v0.12.5/rancher-compose-linux-amd64-v0.12.5.tar.gz
+tar xvf rancher-compose-linux-amd64-v0.12.5.tar.gz
+cd rancher-compose-v0.12.5
+sudo chmod +x rancher-compose
+sudo mv rancher-compose /usr/bin
+cd ..
+rm -fr rancher-compose-v0.12.5
+rm rancher-compose-linux-amd64-v0.12.5.tar.gz
+
+#Install AzureDriver
+cd /usr/bin
+sudo wget https://github.com/Azure/azurefile-dockervolumedriver/releases/download/v0.5.1/azurefile-dockervolumedriver
+sudo chmod +x azurefile-dockervolumedriver
+
+cd /etc/default
+sudo wget https://github.com/Azure/azurefile-dockervolumedriver/blob/master/contrib/init/systemd/azurefile-dockervolumedriver.default
+# This file needs updating
+echo "/etc/default/azurefile-dockervolumedriver"
+sudo mv azurefile-dockervolumedriver.default azurefile-dockervolumedriver
+
+cd /etc/systemd/system
+sudo wget https://github.com/Azure/azurefile-dockervolumedriver/blob/master/contrib/init/systemd/azurefile-dockervolumedriver.service
+
+#systemctl daemon-reload
+#systemctl enable azurefile-dockervolumedriver
+#systemctl start azurefile-dockervolumedriver
