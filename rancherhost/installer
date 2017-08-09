@@ -29,7 +29,7 @@ sudo service docker start
 sudo usermod -aG docker rtadmin
 
 #Install Zip
-sudo apt-get install -y zip tree unzip links2
+sudo apt-get install -y zip tree unzip links2 jq
 
 # Install Rancher
 cd ~
@@ -69,3 +69,4 @@ sudo wget https://github.com/Azure/azurefile-dockervolumedriver/blob/master/cont
 #systemctl daemon-reload
 #systemctl enable azurefile-dockervolumedriver
 #systemctl start azurefile-dockervolumedriver
+
