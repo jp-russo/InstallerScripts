@@ -58,13 +58,13 @@ sudo wget https://github.com/Azure/azurefile-dockervolumedriver/releases/downloa
 sudo chmod +x azurefile-dockervolumedriver
 
 cd /etc/default
-sudo wget https://github.com/Azure/azurefile-dockervolumedriver/blob/master/contrib/init/systemd/azurefile-dockervolumedriver.default
+sudo wget https://raw.githubusercontent.com/Azure/azurefile-dockervolumedriver/master/contrib/init/systemd/azurefile-dockervolumedriver.default
 # This file needs updating
 echo "/etc/default/azurefile-dockervolumedriver"
 sudo mv azurefile-dockervolumedriver.default azurefile-dockervolumedriver
 
 cd /etc/systemd/system
-sudo wget https://github.com/Azure/azurefile-dockervolumedriver/blob/master/contrib/init/systemd/azurefile-dockervolumedriver.service
+sudo wget https://raw.githubusercontent.com/Azure/azurefile-dockervolumedriver/master/contrib/init/systemd/azurefile-dockervolumedriver.service
 
 #systemctl daemon-reload
 #systemctl enable azurefile-dockervolumedriver
