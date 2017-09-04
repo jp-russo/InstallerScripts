@@ -66,7 +66,8 @@ sudo mv azurefile-dockervolumedriver.default azurefile-dockervolumedriver
 cd /etc/systemd/system
 sudo wget https://raw.githubusercontent.com/Azure/azurefile-dockervolumedriver/master/contrib/init/systemd/azurefile-dockervolumedriver.service
 
-#systemctl daemon-reload
-#systemctl enable azurefile-dockervolumedriver
-#systemctl start azurefile-dockervolumedriver
+#Run after azurefile-dockervolumedriver.default has the right storage account & secret
+#sudo systemctl daemon-reload
+#sudo systemctl enable azurefile-dockervolumedriver
+#sudo systemctl start azurefile-dockervolumedriver
 
