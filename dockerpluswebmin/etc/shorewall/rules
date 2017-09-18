@@ -1,0 +1,3 @@
+SSH/ACCEPT	all	$FW
+# Update IPs
+DNAT    net     dkr:172.18.0.230:9000    tcp     443     -       10.2.0.7

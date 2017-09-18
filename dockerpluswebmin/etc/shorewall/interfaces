@@ -1,0 +1,5 @@
+#ZONE INTERFACE BROADCAST OPTIONS
+net   eth0      detect blacklist,nosmurfs
+dkr	pqzone	detect	routefilter,blacklist,logmartians,bridge
+dkr	appzone	detect	routefilter,blacklist,logmartians,bridge
+dkr	docker0	detect	routefilter,blacklist,logmartians,bridge
