@@ -45,10 +45,11 @@ sudo apt-get install -y -f
 sudo apt-get install -y shorewall
 
 sudo cp etc/shorewall/* /etc/shorewall/
-sudo service shorewall start
 
 #Add pqzone to Docker
-docker network create --subnet=172.18.0.0/24 --gateway=172.18.0.100 --ip-range=172.18.0.2/24 -o "com.docker.network.bridge.name"="dkzone" dkzone
+docker network create --subnet=172.18.0.0/24 --gateway=172.18.0.100 --ip-range=172.18.0.2/24 -o "com.docker.network.bridge.name"="pqzone" pqzone
+
+sudo service shorewall start
 
 #Install Zip
 sudo apt-get install -y zip tree unzip links2
